@@ -11,6 +11,7 @@ function Home() {
         Learn React
       </a>
       <Link to="about">About Us</Link>
+      <Link to="example">Example</Link>
     </>
   );
 }
