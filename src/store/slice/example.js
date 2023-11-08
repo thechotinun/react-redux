@@ -1,8 +1,8 @@
-import { apiGetPokemon } from '../../api/pokemon.api';
+import { apiGetExample } from '../../api/example.api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchPokemons = createAsyncThunk('pokemons/fetchPokemons', async (params) => {
-  const data = await apiGetPokemon({ ...params })
+export const fetchExample = createAsyncThunk('example/fetchExample', async (params) => {
+  const data = await apiGetExample({ ...params })
     .then((res) => {
       return res.data;
     })
@@ -13,45 +13,45 @@ export const fetchPokemons = createAsyncThunk('pokemons/fetchPokemons', async (p
   return data;
 });
 
-export const pokemonSlice = createSlice({
-  name: 'pokemon',
+export const exampleSlice = createSlice({
+  name: 'example',
   initialState: {
-    items: [],
+    items: null,
     status: 'idle',
     error: null
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchPokemons.pending, (state) => {
+      .addCase(fetchExample.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(fetchPokemons.fulfilled, (state, action) => {
+      .addCase(fetchExample.fulfilled, (state, action) => {
         state.status = 'succeeded';
         state.items = action.payload;
       })
-      .addCase(fetchPokemons.rejected, (state, action) => {
+      .addCase(fetchExample.rejected, (state, action) => {
         state.status = 'failed';
         state.error = action.error.message;
       });
   }
   // extraReducers: {
-  //   [fetchPokemons.pending]: (state) => {
+  //   [fetchExample.pending]: (state) => {
   //     state.status = 'loading';
   //   },
-  //   [fetchPokemons.fulfilled]: (state, action) => {
+  //   [fetchExample.fulfilled]: (state, action) => {
   //     state.status = 'succeeded';
   //     state.items = action.payload;
   //   },
-  //   [fetchPokemons.rejected]: (state, action) => {
+  //   [fetchExample.rejected]: (state, action) => {
   //     state.status = 'failed';
   //     state.error = action.error.message;
   //   }
   // }
 });
 
-export const selectAllPokemons = (state) => state.pokemon.items;
-export const getPokemonsStatus = (state) => state.pokemon.status;
-export const getPokemonsError = (state) => state.pokemon.error;
+export const selectAllExample = (state) => state.example.items;
+export const getExampleStatus = (state) => state.example.status;
+export const getExampleError = (state) => state.example.error;
 
-export default pokemonSlice.reducer;
+export default exampleSlice.reducer;
