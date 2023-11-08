@@ -12,6 +12,7 @@ function Home() {
       </a>
       <Link to="about">About Us</Link>
       <Link to="example">Example</Link>
+      <Link to="pokemon">Pokemon</Link>
     </>
   );
 }

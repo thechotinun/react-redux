@@ -4,6 +4,7 @@ import Layout from './layout';
 import Home from './pages/home';
 import About from './pages/about';
 import Example from './pages/example';
+import Pokemon from './pages/pokemon';
 
 function App() {
   return (
@@ -31,6 +32,14 @@ function App() {
             element={
               <Layout>
                 <Example />
+              </Layout>
+            }
+          />
+          <Route
+            path="/pokemon"
+            element={
+              <Layout>
+                <Pokemon />
               </Layout>
             }
           />
