@@ -9,3 +9,7 @@ export const apiGetExample = ({ page, limit, ...params }) => {
     }
   });
 };
+
+export const apiPostExample = (params) => {
+  return axiosInterceptor.axios.post(`${process.env.REACT_APP_BASE_URL}/examples`, params);
+};

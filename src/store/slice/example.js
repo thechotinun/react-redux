@@ -1,57 +1,73 @@
-import { apiGetExample } from '../../api/example.api';
+import { apiGetExample, apiPostExample } from '../../api/example.api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchExample = createAsyncThunk('example/fetchExample', async (params) => {
-  const data = await apiGetExample({ ...params })
-    .then((res) => {
-      return res.data;
-    })
-    .catch((err) => {
-      return err;
-    });
+export const fetchExample = createAsyncThunk(
+  'example/fetchExample',
+  async (params, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const { data } = await apiGetExample({ ...params });
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
-  return data;
-});
+export const postExample = createAsyncThunk(
+  'example/postExample',
+  async (params, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const { data } = await apiPostExample(params);
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 export const exampleSlice = createSlice({
   name: 'example',
   initialState: {
+    updateState: false,
+    loading: false,
     items: null,
-    status: 'idle',
-    error: null
+    error: ``,
+    response: ``
   },
-  reducers: {},
+  reducers: {
+    changeStateTrue: (state) => {
+      state.updateState = true;
+    },
+    changeStateFalse: (state) => {
+      state.updateState = false;
+    },
+    clearResponse: (state) => {
+      state.response = ``;
+    }
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchExample.pending, (state) => {
-        state.status = 'loading';
+      .addCase(postExample.pending, (state) => {
+        state.loading = true;
       })
+      .addCase(postExample.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items = action.payload;
+        state.response = `add`;
+      })
+      .addCase(postExample.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+    builder
       .addCase(fetchExample.fulfilled, (state, action) => {
-        state.status = 'succeeded';
         state.items = action.payload;
       })
       .addCase(fetchExample.rejected, (state, action) => {
-        state.status = 'failed';
         state.error = action.error.message;
       });
   }
-  // extraReducers: {
-  //   [fetchExample.pending]: (state) => {
-  //     state.status = 'loading';
-  //   },
-  //   [fetchExample.fulfilled]: (state, action) => {
-  //     state.status = 'succeeded';
-  //     state.items = action.payload;
-  //   },
-  //   [fetchExample.rejected]: (state, action) => {
-  //     state.status = 'failed';
-  //     state.error = action.error.message;
-  //   }
-  // }
 });
 
-export const selectAllExample = (state) => state.example.items;
-export const getExampleStatus = (state) => state.example.status;
-export const getExampleError = (state) => state.example.error;
-
 export default exampleSlice.reducer;
+export const { changeStateTrue, changeStateFalse, clearResponse } = exampleSlice.actions;

@@ -5,6 +5,7 @@ import Home from './pages/home';
 import About from './pages/about';
 import Example from './pages/example';
 import Pokemon from './pages/pokemon';
+import Add from './pages/example/add';
 
 function App() {
   return (
@@ -32,6 +33,14 @@ function App() {
             element={
               <Layout>
                 <Example />
+              </Layout>
+            }
+          />
+          <Route
+            path="/formexample"
+            element={
+              <Layout>
+                <Add />
               </Layout>
             }
           />
