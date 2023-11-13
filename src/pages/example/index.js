@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchExample } from '../../store/slice/example';
+import { fetchExample, clearResponse } from '../../store/slice/example';
 
 function Example() {
   const dispatch = useDispatch();
-  const { loading, items } = useSelector((state) => state.exampleKey);
+  const { loading, items, response } = useSelector((state) => state.exampleKey);
 
   useEffect(() => {
     dispatch(fetchExample({ page: 1 }));
   }, [dispatch]);
+
+  useEffect(() => {
+    if (response === 'fetch') dispatch(clearResponse());
+  }, [response]);
 
   return (
     <>

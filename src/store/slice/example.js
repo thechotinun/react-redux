@@ -60,11 +60,17 @@ export const exampleSlice = createSlice({
         state.error = action.payload;
       });
     builder
+      .addCase(fetchExample.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(fetchExample.fulfilled, (state, action) => {
+        state.loading = false;
         state.items = action.payload;
+        state.response = `fetch`;
       })
       .addCase(fetchExample.rejected, (state, action) => {
-        state.error = action.error.message;
+        state.loading = false;
+        state.error = action.payload;
       });
   }
 });

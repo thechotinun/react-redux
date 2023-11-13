@@ -5,21 +5,18 @@ import { postExample } from '../../store/slice/example';
 
 function Add() {
   const dispatch = useDispatch();
-  const { loading, error, response } = useSelector((state) => state.exampleKey);
+  const { loading, response } = useSelector((state) => state.exampleKey);
   let navigate = useNavigate();
   const [name, setName] = useState('');
 
-  const handleName = (event) => {
-    setName(event.target.value);
-  };
+  const handleName = (event) => setName(event.target.value);
 
   useEffect(() => {
-    console.log(error);
-  }, [error]);
+    if (response === 'add') navigate('/example');
+  }, [response]);
 
   const creat = () => {
-    dispatch(postExample({ name: name }));
-    if (response === 'add') navigate('/example');
+    dispatch(postExample({ name: name, createdBy: 1412, updatedBy: 1412 }));
   };
 
   const handleSubmit = (e) => {
