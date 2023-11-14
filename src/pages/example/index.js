@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchExample, clearResponse } from '../../store/slice/example';
+import { fetchExamples, clearResponse } from '../../store/slice/example';
 
 function Example() {
   const dispatch = useDispatch();
   const { loading, items, response } = useSelector((state) => state.exampleKey);
 
   useEffect(() => {
-    dispatch(fetchExample({ page: 1 }));
+    dispatch(fetchExamples({ page: 1 }));
   }, [dispatch]);
 
   useEffect(() => {
@@ -25,7 +25,9 @@ function Example() {
       {items?.data?.length &&
         items.data.map((data, i) => (
           <div key={i}>
-            <h2>{data.name}</h2>
+            <h2>
+              <Link to={`/formexample/${data.id}`}>{data.name}</Link>
+            </h2>
             <hr />
           </div>
         ))}

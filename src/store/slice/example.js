@@ -1,11 +1,23 @@
-import { apiGetExample, apiPostExample } from '../../api/example.api';
+import { apiGetExample, apiGetExamples, apiPostExample } from '../../api/example.api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchExample = createAsyncThunk(
   'example/fetchExample',
+  async ({ id, params }, { fulfillWithValue, rejectWithValue }) => {
+    try {
+      const { data } = await apiGetExample(id, { ...params });
+      return fulfillWithValue(data);
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const fetchExamples = createAsyncThunk(
+  'example/fetchExamples',
   async (params, { fulfillWithValue, rejectWithValue }) => {
     try {
-      const { data } = await apiGetExample({ ...params });
+      const { data } = await apiGetExamples({ ...params });
       return fulfillWithValue(data);
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -47,6 +59,19 @@ export const exampleSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
+      .addCase(fetchExample.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchExample.fulfilled, (state, action) => {
+        state.loading = false;
+        state.items = action.payload;
+        state.response = `fetch`;
+      })
+      .addCase(fetchExample.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
+    builder
       .addCase(postExample.pending, (state) => {
         state.loading = true;
       })
@@ -60,15 +85,15 @@ export const exampleSlice = createSlice({
         state.error = action.payload;
       });
     builder
-      .addCase(fetchExample.pending, (state) => {
+      .addCase(fetchExamples.pending, (state) => {
         state.loading = true;
       })
-      .addCase(fetchExample.fulfilled, (state, action) => {
+      .addCase(fetchExamples.fulfilled, (state, action) => {
         state.loading = false;
         state.items = action.payload;
         state.response = `fetch`;
       })
-      .addCase(fetchExample.rejected, (state, action) => {
+      .addCase(fetchExamples.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
