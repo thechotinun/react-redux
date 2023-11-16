@@ -1,12 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  selectAllPokemons,
-  getPokemonsStatus,
-  getPokemonsError,
-  fetchPokemons
-} from '../../store/slice/pokemon';
+import { selectAllPokemons, getPokemonsStatus, getPokemonsError, fetchPokemons } from '../../store/slice/pokemon';
 
 function Pokemon() {
   const dispatch = useDispatch();

@@ -32,9 +32,7 @@ function Add() {
         <p> Loading... </p>
       ) : (
         <form style={{ display: 'grid' }} onSubmit={handleSubmit}>
-          <label
-            htmlFor="name"
-            style={{ margin: '5px 0px', display: 'flex', alignItems: 'center' }}>
+          <label htmlFor="name" style={{ margin: '5px 0px', display: 'flex', alignItems: 'center' }}>
             Name:
             <input id="name" name="name" type="text" value={name} onChange={handleName} />
           </label>

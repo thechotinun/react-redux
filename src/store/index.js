@@ -7,6 +7,6 @@ export default configureStore({
   reducer: {
     about: aboutReducer,
     pokemon: pokemonReducer,
-    exampleKey: exampleReducer
-  }
+    exampleKey: exampleReducer,
+  },
 });

@@ -20,9 +20,7 @@ function About() {
       ))}
       <div>
         <input type="text" value={todoTitle} onChange={(e) => setTodoTitle(e.target.value)} />
-        <button onClick={() => dispatch(addItem({ title: todoTitle, complete: false }))}>
-          Add
-        </button>
+        <button onClick={() => dispatch(addItem({ title: todoTitle, complete: false }))}>Add</button>
       </div>
       <Link to="/">Home</Link>
     </>

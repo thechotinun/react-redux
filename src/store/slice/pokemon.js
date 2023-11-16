@@ -18,7 +18,7 @@ export const pokemonSlice = createSlice({
   initialState: {
     items: [],
     status: 'idle',
-    error: null
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -34,7 +34,7 @@ export const pokemonSlice = createSlice({
         state.status = 'failed';
         state.error = action.error.message;
       });
-  }
+  },
 });
 
 export const selectAllPokemons = (state) => state.pokemon.items;

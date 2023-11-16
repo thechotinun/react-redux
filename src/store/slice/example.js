@@ -10,7 +10,7 @@ export const fetchExample = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 export const fetchExamples = createAsyncThunk(
@@ -22,7 +22,7 @@ export const fetchExamples = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 export const postExample = createAsyncThunk(
@@ -34,7 +34,7 @@ export const postExample = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.response.data);
     }
-  }
+  },
 );
 
 export const exampleSlice = createSlice({
@@ -44,7 +44,7 @@ export const exampleSlice = createSlice({
     loading: false,
     items: null,
     error: ``,
-    response: ``
+    response: ``,
   },
   reducers: {
     changeStateTrue: (state) => {
@@ -55,7 +55,7 @@ export const exampleSlice = createSlice({
     },
     clearResponse: (state) => {
       state.response = ``;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -97,7 +97,7 @@ export const exampleSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
-  }
+  },
 });
 
 export default exampleSlice.reducer;
