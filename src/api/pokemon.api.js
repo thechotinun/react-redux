@@ -5,7 +5,7 @@ export const apiGetPokemon = ({ offset, limit, ...params }) => {
     params: {
       offset,
       limit,
-      ...params
-    }
+      ...params,
+    },
   });
 };

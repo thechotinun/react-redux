@@ -3,8 +3,8 @@ import { axiosInterceptor } from './axios.interceptor';
 export const apiGetExample = (id, { ...params }) => {
   return axiosInterceptor.axios.get(`${process.env.REACT_APP_BASE_URL}/examples/${id}`, {
     params: {
-      ...params
-    }
+      ...params,
+    },
   });
 };
 
@@ -13,8 +13,8 @@ export const apiGetExamples = ({ page, limit, ...params }) => {
     params: {
       page,
       limit,
-      ...params
-    }
+      ...params,
+    },
   });
 };
 

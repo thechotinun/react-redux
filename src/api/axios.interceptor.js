@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 const http = axios.create({
-  baseURL: BASE_URL
+  baseURL: BASE_URL,
 });
 
 axios.interceptors.request.use(
@@ -13,13 +13,13 @@ axios.interceptors.request.use(
 
     if (token) {
       config.headers = {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${token}`,
       };
     }
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 axios.interceptors.response.use(
@@ -32,7 +32,7 @@ axios.interceptors.response.use(
     const { response } = error;
     if (response?.data.status === 500) console.log(`500`);
     return Promise.reject(error);
-  }
+  },
 );
 
 function getToken() {

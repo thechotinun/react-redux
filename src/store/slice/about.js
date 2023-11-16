@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 export const aboutSlice = createSlice({
   name: 'about',
   initialState: {
-    items: []
+    items: [],
   },
   reducers: {
     addItem: (state, action) => {
@@ -15,8 +15,8 @@ export const aboutSlice = createSlice({
         const updatedItems = [...state.items];
         updatedItems[itemIndex].complete = !updatedItems[itemIndex].complete;
       }
-    }
-  }
+    },
+  },
 });
 
 export const { addItem, setComplete } = aboutSlice.actions;
